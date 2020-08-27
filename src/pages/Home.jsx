@@ -1,7 +1,22 @@
 import React from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+
 import { Categories, SortPopup, PizzaBlock } from '../components';
 
-function Home({ items }) {
+function Home() {
+	const { items } = useSelector(({ pizzas, filters }) => {
+		return {
+			items: pizzas.items,
+		};
+	});
+
+	React.useEffect(() => {
+		axios.get('http://localhost:3000/db.json').then(({ data }) => {
+			console.log('requesting data from server');
+		});
+	}, []);
+
 	return (
 		<div className="container">
 			<div className="content__top">
@@ -12,16 +27,14 @@ function Home({ items }) {
 				<SortPopup
 					items={[
 						{ name: 'популярности', type: 'popular' },
-						{name: 'цене', type: 'price'},
-						{name: 'алфавиту', type: 'alphabet'},
+						{ name: 'цене', type: 'price' },
+						{ name: 'алфавиту', type: 'alphabet' },
 					]}
 				/>
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">
-				{items.map((obj) => (
-					<PizzaBlock key={obj.id} {...obj} />
-				))}
+				{items && items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
 			</div>
 		</div>
 	);
