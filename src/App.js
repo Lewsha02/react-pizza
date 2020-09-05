@@ -11,8 +11,11 @@ function App() {
 	const dispatch = useDispatch();
 
 	React.useEffect(() => {
-		axios.get('http://localhost:3000/db.json').then(({ data }) => {
-			dispatch(setPizzas(data.pizzas));
+		// Перенести в Redux и подключить redux-thunk.
+		// Следить за фильтрацией и сортировкой и подставлять параметры в URL из Redux.
+		// Сделать иммитацию загрузки пицц (которая есть в CSS и в PizzaBlock).
+		axios.get('http://localhost:3001/pizzas').then(({ data }) => {
+			dispatch(setPizzas(data));
 		});
 	}, []);
 
