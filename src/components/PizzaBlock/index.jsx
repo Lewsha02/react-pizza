@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 function PizzaBlock({ name, imageUrl, price, types, sizes }) {
 	const availableTypes = ['тонкое', 'традиционное'];
+	// TODO: Проверить почему не выбирается по умолчанию первый размер при первом ренедере
 	const availableSizes = [26, 30, 40];
 
 	const [activeType, setActiveType] = React.useState(types[0]);
